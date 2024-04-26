@@ -1,0 +1,23 @@
+{
+  "name": "lb-ebook-poc",
+  "version": "1.0.0",
+  "description": "Lullabot eBook Template POC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:sass": "sass --watch src/sass:_site/css",
+    "build:sass": "sass src/sass:_site/css",
+    "watch:eleventy": "npx @11ty/eleventy --serve",
+    "build:eleventy": "npx @11ty/eleventy",
+    "start": "npm-run-all build:sass --parallel watch:*",
+    "build": "npm-run-all build:*"
+  },
+  "author": "Hunter MacDermut",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy-img": "^4.0.2",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.75.0"
+  }
+}
