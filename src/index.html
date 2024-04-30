@@ -1,6 +1,12 @@
 ---
-title: 'Qwerty'
+title: 'eBooks'
 layout: layout.njk
 ---
 
-{% include '_page.njk' %}
+<ol>
+  {% for ebook in ebooks %}
+    <li>
+      <a href="/ebooks/{{ ebook.link }}/cover">{{ ebook.title }}</a>
+    </li>
+  {% endfor %}
+</ol>

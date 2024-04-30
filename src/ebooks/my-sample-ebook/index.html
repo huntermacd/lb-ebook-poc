@@ -1,0 +1,11 @@
+---
+pagination:
+  data: ebookPages
+  size: 1
+  alias: ebookPage
+permalink: "/ebooks/{{ ebookTitle | slugify }}/{{ ebookPage.pageTitle | slugify }}/"
+eleventyExludeFromCollections: true
+layout: layout.njk
+---
+
+{% include '_ebookPage.njk' %}

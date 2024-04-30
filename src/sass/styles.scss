@@ -1,3 +1,15 @@
+$lb-black: #01070B;
+$lb-red: #F81E00;
+
 body {
   margin: 0;
+}
+
+.logo-container {
+  background-color: $lb-red;
+  height: 80px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
