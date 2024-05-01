@@ -1,3 +1,12 @@
-{% for item in ebookPage.tableOfContents %}
-  <p>{{ loop.index0 }} - {{ item }}</p>
-{% endfor %}
+<div class="toc-container">
+  <p>Table of Contents</p>
+  <ol>
+    {% for item in ebookPage.tableOfContents %}
+      <li>
+        <a href="/ebooks/{{ ebookTitle | slugify }}/{{ item | slugify }}/">
+          {{ item }}
+        </>
+      </li>
+    {% endfor %}
+  </ol>
+</div>

@@ -6,6 +6,21 @@ pagination:
 permalink: "/ebooks/{{ ebookTitle | slugify }}/{{ ebookPage.pageTitle | slugify }}/"
 eleventyExludeFromCollections: true
 layout: layout.njk
+title: "Lullabot eBook"
 ---
 
 {% include '_ebookPage.njk' %}
+
+<div class="nav-container">
+  {% if pagination.href.previous %}
+    <div class="nav-button">
+      <a href="{{ pagination.href.previous }}"><i class="gg-arrow-left"></i></a>
+    </div>
+  {% endif %}
+
+  {% if pagination.href.next %}
+    <div class="nav-button">
+      <a href="{{ pagination.href.next }}"><i class="gg-arrow-right"></i></a>
+    </div>
+  {% endif %}
+</div>

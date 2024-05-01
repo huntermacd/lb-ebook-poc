@@ -1,8 +1,44 @@
-$lb-black: #01070B;
-$lb-red: #F81E00;
+$lb-black: #01070b;
+$lb-red: #f81e00;
+$lb-gray: #e0e6eb;
 
 body {
   margin: 0;
+  display: flex;
+}
+
+main {
+  font-family: verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: calc(100% - 81px);
+  position: relative;
+}
+
+.sidebar {
+  width: 80px;
+  height: 100vh;
+  border-right: 1px solid $lb-gray;
+  box-sizing: border-box;
+  box-shadow: -10px 10px 10px 10px $lb-gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .page-title {
+    flex-grow: 1;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    div {
+      transform: rotate(-90deg);
+      font-family: verdana, sans-serif;
+      font-size: 1.25em;
+    }
+  }
 }
 
 .logo-container {
@@ -12,4 +48,103 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.page-number {
+  height: 80px;
+  width: 80px;
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: verdana, sans-serif;
+  border-top: 1px solid $lb-gray;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: end;
+  gap: 0.5em;
+  margin: 0.5em;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.nav-button {
+  border: 2px solid $lb-gray;
+  display: inline-block;
+  padding: 1em;
+  background-color: #fff;
+
+  &:hover {
+    background-color: $lb-black;
+
+    i {
+      color: #fff;
+    }
+  }
+}
+
+.cover {
+  background-color: $lb-black;
+  color: #fff;
+  padding: 7em;
+
+  > p {
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: 75px;
+    font-weight: 700;
+  }
+}
+
+.cover-copy {
+  background-color: #fff;
+  color: $lb-black;
+  padding: 7em;
+  font-size: 1.25em;
+}
+
+.toc-container {
+  padding: 7em;
+
+  > p {
+    text-transform: uppercase;
+    margin-bottom: 3em;
+  }
+
+  ol li {
+    font-size: 1.25em;
+    font-weight: 700;
+    margin-bottom: 1.5em;
+  }
+}
+
+.ebook-page-container {
+  display: flex;
+  height: 100%;
+  
+  div {
+    padding: 7em;
+  }
+
+  .ebook-copy {
+    p:first-of-type {
+      text-transform: uppercase;
+      color: $lb-red;
+      font-weight: 700;
+    }
+
+    .copy-paragraph {
+      font-size: 1.25em;
+      line-height: 2;
+    }
+  }
+
+  .ebook-image {
+    background-color: $lb-gray;
+  }
 }
