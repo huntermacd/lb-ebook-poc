@@ -14,10 +14,5 @@ services:
         - find ./src/adr  -maxdepth 1 -type f -exec zip ./public/files/all-mdx.zip {} +
     urls:
       - /
-      - /adrs/devops/
-      - /adr/20210729-stage-file-proxy/
-      - /adr/20220622-1-do-not-add-metatags-to-node-form/
-      - url: /adr/20210705-use-log4brains-to-manage-the-adrs/
-
     visualdiff:
       threshold: 98
