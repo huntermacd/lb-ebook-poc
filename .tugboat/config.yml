@@ -1,0 +1,23 @@
+services:
+  apache:
+    image: tugboatqa/httpd:2.4
+    default: true
+    commands:
+      init:
+        - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+        - ln --symbolic --no-dereference --force "${TUGBOAT_ROOT}/public" "${DOCROOT}"
+        - apt-get install -y nodejs
+      build:
+        - npm install
+        - npm run-script build
+        - mkdir --parents "./public/files"
+        - find ./src/adr  -maxdepth 1 -type f -exec zip ./public/files/all-mdx.zip {} +
+    urls:
+      - /
+      - /adrs/devops/
+      - /adr/20210729-stage-file-proxy/
+      - /adr/20220622-1-do-not-add-metatags-to-node-form/
+      - url: /adr/20210705-use-log4brains-to-manage-the-adrs/
+
+    visualdiff:
+      threshold: 98
