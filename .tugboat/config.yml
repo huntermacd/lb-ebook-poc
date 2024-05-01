@@ -10,7 +10,7 @@ services:
       build:
         - npm install
         - npm run-script build
-        - mkdir --parents "./public/files"
+        - ln -snf "${TUGBOAT_ROOT}"/_site "${DOCROOT}"
     urls:
       - /
     visualdiff:
