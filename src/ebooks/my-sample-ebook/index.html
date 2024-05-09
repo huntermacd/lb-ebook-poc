@@ -1,15 +1,13 @@
 ---
 pagination:
-  data: ebookPages
+  data: collections.chaptersSorted
   size: 1
-  alias: ebookPage
-permalink: "/ebooks/{{ ebookTitle | slugify }}/{{ ebookPage.pageTitle | slugify }}/"
-eleventyExludeFromCollections: true
-layout: layout.njk
-title: "Lullabot eBook"
+  alias: chapter
+title: "My Sample eBook"
+layout: layout.liquid
 ---
 
-{% include '_ebookPage.njk' %}
+{% include 'chapter.liquid' %}
 
 <div class="nav-container">
   {% if pagination.href.previous %}

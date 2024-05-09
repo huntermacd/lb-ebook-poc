@@ -1,13 +1,30 @@
 const Image = require("@11ty/eleventy-img");
 
 module.exports = function (eleventyConfig) {
+  // sort cover and toc to front of collection
+  eleventyConfig.addCollection("chaptersSorted", function (collectionApi) {
+    const all = collectionApi.getAll();
+
+    let sorted = [];
+    for (const item of all[0].data.collections.chapter) {
+      if (item.fileSlug === "cover") {
+        sorted.splice(0, 0, item);
+      } else if (item.fileSlug === "table-of-contents") {
+        sorted.splice(1, 0, item);
+      } else {
+        sorted.push(item);
+      }
+    }
+
+    return sorted;
+  });
+
   // Watch CSS files for changes
   eleventyConfig.setBrowserSyncConfig({
     files: "./_site/css/**/*.css",
   });
 
   // Copy img dir into _site/img
-  console.log('move img into _site');
   eleventyConfig.addPassthroughCopy("img");
 
   // Async shortcode for optimizing/rendering images

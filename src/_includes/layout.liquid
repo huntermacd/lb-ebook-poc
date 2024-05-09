@@ -18,14 +18,16 @@
         </a>
       </div>
       <div class="page-title">
-        <div>{{ ebookPage.pageTitle }}</div>
+        <div>{{ chapter.data.title }}</div>
       </div>
-      <div class="page-number">
-        <div>{{ pagination.pageNumber }}</div>
-      </div>
+      {% if pagination.pageNumber != 0 %}
+        <div class="page-number">
+          <div>{% if pagination.pageNumber == 1 %}TOC{% else %}{{ pagination.pageNumber | minus: 1 }}{% endif %}</div>
+        </div>
+      {% endif %}
     </div>
     <main>
-      {{ content | safe }}
+      {{ content }}
     </main>
   </body>
 </html>

@@ -1,19 +1,16 @@
 {% if pagination.pageNumber == 0 %}
-  {% include '_cover.njk' %}
+  {% include 'cover.liquid' %}
 {% endif %}
 
 {% if pagination.pageNumber == 1 %}
-  {% include '_toc.njk' %}
+  {% include 'table-of-contents.liquid' %}
 {% endif %}
 
 {% if pagination.pageNumber >= 2 %}
   <div class="ebook-page-container">
     <div class="ebook-copy">
-      <p>Chapter {{ pagination.pageNumber }}</p>
-      <h1>{{ ebookPage.pageTitle }}</h1>
-      {% for paragraph in ebookPage.pageCopy %}
-        <p class="copy-paragraph">{{ paragraph }}</p>
-      {% endfor %}
+      <p>Chapter {{ pagination.pageNumber | minus: 1 }}</p>
+      <p class="copy-paragraph">{{ chapter.content }}</p>
     </div>
     <div class="ebook-image">
       <img src="https://placehold.co/400x400/f81e00/01070b" />
