@@ -1,0 +1,24 @@
+---
+pagination:
+  data: collections.chaptersSorted
+  size: 1
+  alias: chapter
+title: "Why your CMS Project Will Fail"
+layout: layout.liquid
+---
+
+{% include 'chapter.liquid' %}
+
+<div class="nav-container">
+  {% if pagination.href.previous %}
+    <div class="nav-button">
+      <a href="{{ pagination.href.previous }}"><i class="gg-arrow-left"></i></a>
+    </div>
+  {% endif %}
+
+  {% if pagination.href.next %}
+    <div class="nav-button">
+      <a href="{{ pagination.href.next }}"><i class="gg-arrow-right"></i></a>
+    </div>
+  {% endif %}
+</div>
