@@ -1,0 +1,20 @@
+---
+layout: layout
+title: eBooks
+pagination:
+  data: collections.allBooks
+  size: 1
+  alias: book
+permalink: "/index.html"
+---
+
+<h1>{{ title }}
+</h1>
+<ul>
+  {% for book in collections.allBooks %}
+    <li>
+      <a href="/ebooks/{{ book.link }}/">{{ book.title }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>>
