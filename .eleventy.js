@@ -1,22 +1,25 @@
 const Image = require("@11ty/eleventy-img");
 
 module.exports = function (eleventyConfig) {
-  // sort cover and toc to front of collection
+  // Sort cover and toc to front of collection
   eleventyConfig.addCollection("chaptersSorted", function (collectionApi) {
-    const all = collectionApi.getAll();
+    return collectionApi.getFilteredByGlob("src/ebooks/*/chapters/*.md").sort((a, b) => {
+      if (a.fileSlug === "cover") return -1;
+      if (b.fileSlug === "cover") return 1;
+      if (a.fileSlug === "table-of-contents") return -1;
+      if (b.fileSlug === "table-of-contents") return 1;
+      return 0;
+    });
+  });
 
-    let sorted = [];
-    for (const item of all[0].data.collections.chapter) {
-      if (item.fileSlug === "cover") {
-        sorted.splice(0, 0, item);
-      } else if (item.fileSlug === "table-of-contents") {
-        sorted.splice(1, 0, item);
-      } else {
-        sorted.push(item);
-      }
-    }
-
-    return sorted;
+  // Generate a collection of all books
+  eleventyConfig.addCollection("allBooks", function (collectionApi) {
+    return collectionApi.getFilteredByGlob("src/ebooks/*/").map(book => {
+      return {
+        title: book.data.title || "Untitled Book",
+        link: book.fileSlug
+      };
+    });
   });
 
   // Watch CSS files for changes
@@ -34,13 +37,7 @@ module.exports = function (eleventyConfig) {
       formats: ["jpeg"],
     });
 
-    let data;
-
-    if (width === 260) {
-      data = metadata.jpeg[0];
-    } else {
-      data = metadata.jpeg[1];
-    }
+    let data = width === 260 ? metadata.jpeg[0] : metadata.jpeg[1];
 
 		return `<img src="${data.url}" width="${width}" height="${height}" alt="${alt}" loading="lazy" decoding="async">`;
   });
@@ -48,6 +45,9 @@ module.exports = function (eleventyConfig) {
   return {
     dir: {
       input: "src",
+      output: "_site",
+      includes: "_includes",
+      data: "_data",
     },
   };
 };
