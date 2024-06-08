@@ -1,6 +1,6 @@
 ---
 title: "Chapter 2"
-tags: chapter
+layout: chapter
 ---
 
 # Lack of Stakeholder Involvement

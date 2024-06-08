@@ -1,6 +1,6 @@
 ---
 title: "Chapter 1"
-tags: chapter
+layout: chapter
 ---
 
 # Why Your CMS Project will Fail

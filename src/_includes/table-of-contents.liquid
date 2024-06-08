@@ -1,10 +1,32 @@
-<div class="toc-container">
-  <p>Table of Contents</p>
+---
+layout: layout
+title: "Table of Contents"
+---
+
+
+
+<nav class="toc-container">
+  <p><h1>{{ title }}</h1></p>
   <ol>
-    {%- for pageEntry in pagination.pages %}
-      {% if forloop.index0 >= 2 %}
-        <li><a href="{{ pagination.hrefs[forloop.index0] }}"{% if page.url == pagination.hrefs[forloop.index0] %} aria-current="page"{% endif %}>{{ pageEntry.data.title }}</a></li>
+    {% assign currentBookSlug = page.filePathStem | split: "/" | slice: 2, 1 | join: "" %}
+    {% for bookWithChapters in collections.booksWithChapters %}
+      {% if bookWithChapters.book.slug == currentBookSlug %}
+        {% for chapter in bookWithChapters.chapters %}
+          <li>
+            <a href="{{ chapter.url }}">{{ chapter.title }}</a>
+          </li>
+        {% endfor %}
       {% endif %}
-    {%- endfor %}
+    {% endfor %}
   </ol>
+</nav>
+
+
+<div class="nav-container">
+    <div class="nav-button">
+      <a href="../cover/"><i class="gg-arrow-left"></i></a>
+    </div>
+    <div class="nav-button">
+      <a href="../chapters/chapter-1"><i class="gg-arrow-right"></i></a>
+    </div>
 </div>

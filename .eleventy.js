@@ -1,36 +1,42 @@
 const Image = require("@11ty/eleventy-img");
+const path = require("path");
 
 module.exports = function (eleventyConfig) {
-  // Sort cover and toc to front of collection
-  eleventyConfig.addCollection("chaptersSorted", function (collectionApi) {
-    return collectionApi.getFilteredByGlob("src/ebooks/*/chapters/*.md").sort((a, b) => {
-      if (a.fileSlug === "cover") return -1;
-      if (b.fileSlug === "cover") return 1;
-      if (a.fileSlug === "table-of-contents") return -1;
-      if (b.fileSlug === "table-of-contents") return 1;
-      return 0;
-    });
-  });
+  // Generate a collection of all books with their chapters
+  eleventyConfig.addCollection("booksWithChapters", function (collectionApi) {
+    const books = collectionApi.getFilteredByGlob("src/ebooks/*/cover.md");
+    const chapters = collectionApi.getFilteredByGlob("src/ebooks/*/chapters/*.md");
 
-  // Generate a collection of all books
-  eleventyConfig.addCollection("allBooks", function (collectionApi) {
-    return collectionApi.getFilteredByGlob("src/ebooks/*/").map(book => {
+    return books.map(book => {
+      const bookSlug = book.filePathStem.split("/")[2];
+      const bookChapters = chapters
+        .filter(chapter => chapter.inputPath.includes(bookSlug))
+        .sort((a, b) => a.fileSlug.localeCompare(b.fileSlug));
+
       return {
-        title: book.data.title || "Untitled Book",
-        link: book.fileSlug
+        book: {
+          ...book.data,
+          slug: bookSlug,
+        },
+        chapters: bookChapters.map((chapter, index) => ({
+          title: chapter.data.title,
+          url: chapter.url,
+          filePathStem: chapter.filePathStem,
+          inputPath: chapter.inputPath,
+          index: index,
+          previous: index > 0 ? bookChapters[index - 1] : null,
+          next: index < bookChapters.length - 1 ? bookChapters[index + 1] : null,
+        }))
       };
     });
   });
 
-  // Watch CSS files for changes
   eleventyConfig.setBrowserSyncConfig({
     files: "./_site/css/**/*.css",
   });
 
-  // Copy img dir into _site/img
   eleventyConfig.addPassthroughCopy("img");
 
-  // Async shortcode for optimizing/rendering images
   eleventyConfig.addShortcode("image", async function (src, alt, width, height) {
     let metadata = await Image(src, {
       widths: [260, 570],
@@ -39,7 +45,7 @@ module.exports = function (eleventyConfig) {
 
     let data = width === 260 ? metadata.jpeg[0] : metadata.jpeg[1];
 
-		return `<img src="${data.url}" width="${width}" height="${height}" alt="${alt}" loading="lazy" decoding="async">`;
+    return `<img src="${data.url}" width="${width}" height="${height}" alt="${alt}" loading="lazy" decoding="async">`;
   });
 
   return {

@@ -1,6 +1,6 @@
 ---
 title: "Chapter 3"
-tags: chapter
+layout: chapter
 ---
 
 # The People who Use the Site the Most Are Never Consulted

@@ -1,19 +1,41 @@
-{% if pagination.pageNumber == 0 %}
-  {% include 'cover.liquid' %}
-{% endif %}
+---
+layout: layout
+---
 
-{% if pagination.pageNumber == 1 %}
-  {% include 'table-of-contents.liquid' %}
-{% endif %}
-
-{% if pagination.pageNumber >= 2 %}
-  <div class="ebook-page-container">
-    <div class="ebook-copy">
-      <p>Chapter {{ pagination.pageNumber | minus: 1 }}</p>
-      <p class="copy-paragraph">{{ chapter.content }}</p>
-    </div>
-    <div class="ebook-image">
-      <img src="https://placehold.co/400x400/f81e00/01070b" />
-    </div>
+<div class="ebook-page-container">
+  <div class="ebook-copy">
+    <p>{{ title }} </p>
+    <p class="copy-paragraph">{{ content }}</p>
   </div>
-{% endif %}
+  <div class="ebook-image">
+    <img src="https://placehold.co/400x400/f81e00/01070b" />
+  </div>
+</div>
+
+{% assign currentBookSlug = page.filePathStem | split: "/" | slice: 2, 1 | join: "" %}
+{% assign bookWithChapters = collections.booksWithChapters | where: "book.slug", currentBookSlug | first %}
+{% assign chapter = bookWithChapters.chapters | where: "url", page.url | first %}
+{% assign previousChapter = chapter.previous %}
+{% assign nextChapter = chapter.next %}
+{% assign isFirstChapter = chapter.index == 0 %}
+{% assign isLastChapter = chapter.index == bookWithChapters.chapters.size | minus: 1 %}
+
+<div class="nav-container">
+  {% if isFirstChapter %}
+    <div class="nav-button">
+      <a href="../../table-of-contents/"><i class="gg-arrow-left"></i></a>
+    </div>
+  {% else %}
+    {% if previousChapter %}
+      <div class="nav-button">
+        <a href="{{ previousChapter.url }}"><i class="gg-arrow-left"></i></a>
+      </div>
+    {% endif %}
+  {% endif %}
+
+  {% if nextChapter %}
+    <div class="nav-button">
+      <a href="{{ nextChapter.url }}"><i class="gg-arrow-right"></i></a>
+    </div>
+  {% endif %}
+</div>
