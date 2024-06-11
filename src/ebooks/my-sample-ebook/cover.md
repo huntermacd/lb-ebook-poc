@@ -1,5 +1,5 @@
 ---
-layout: cover.liquid
+layout: cover
 slug: "my-sample-ebook"
 title: "My Sample eBook"
 ---

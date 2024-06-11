@@ -1,6 +1,6 @@
 ---
 title: "Table of Contents"
-layout: table-of-contents.liquid
+layout: table-of-contents
 pagination:
   data: collections.booksWithChapters
   size: 1

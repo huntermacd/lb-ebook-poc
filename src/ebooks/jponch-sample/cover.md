@@ -1,5 +1,5 @@
 ---
-layout: cover.liquid
+layout: cover
 slug: "jponch-sample"
 title: "Why your CMS Project Will Fail"
 ---
