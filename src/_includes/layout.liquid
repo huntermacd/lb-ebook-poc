@@ -25,7 +25,15 @@
     {% for bookWithChapters in collections.booksWithChapters %}
       {% if bookWithChapters.book.slug == currentBookSlug %}
         <div class="page-number">
-          <div><a href="/ebooks/{{ bookWithChapters.book.slug }}/table-of-contents">TOC</a></div>
+          <div>
+            {% if page.fileSlug == 'cover' %}
+              <!-- Empty for cover page -->
+            {% elsif page.fileSlug == 'table-of-contents' %}
+              TOC
+            {% else %}
+              {{ page.fileSlug | replace: 'chapter-', '' }}
+            {% endif %}
+          </div>
         </div>
       {% endif %}
     {% endfor %}
