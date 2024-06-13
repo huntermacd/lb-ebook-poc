@@ -1,5 +1,5 @@
 ---
-title: "Chapter 3"
+title: "The people who use the site the most are never consulted"
 layout: chapter
 ---
 
