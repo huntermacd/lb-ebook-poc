@@ -3,30 +3,50 @@ layout: layout
 title: "Table of Contents"
 ---
 
-
-
 <nav class="toc-container">
-  <p><h1>{{ title }}</h1></p>
-  <ol>
+  <p>{{ title }}</p>
+  <div class="toc-columns">
     {% assign currentBookSlug = page.filePathStem | split: "/" | slice: 2, 1 | join: "" %}
+    {% assign count = 1 %}
     {% for bookWithChapters in collections.booksWithChapters %}
       {% if bookWithChapters.book.slug == currentBookSlug %}
-        {% for chapter in bookWithChapters.chapters %}
-          <li>
-            <a href="{{ chapter.url }}">{{ chapter.title }}</a>
-          </li>
-        {% endfor %}
+        <div class="toc-column">
+          {% for chapter in bookWithChapters.chapters %}
+            {% if count <= 5 %}
+              <div class="chapter-item">
+                <span class="chapter-count">{% if count < 10 %}0{% endif %}{{ count | append: ' ' }}</span>
+                <div class="chapter-title-wrapper">
+                  <a href="{{ chapter.url }}">{{ chapter.title }}</a>
+                </div>
+              </div>
+            {% endif %}
+            {% assign count = count | plus: 1 %}
+          {% endfor %}
+        </div>
+        {% assign count = 1 %}
+        <div class="toc-column">
+          {% for chapter in bookWithChapters.chapters %}
+            {% if count > 5 %}
+              <div class="chapter-item">
+                <span class="chapter-count">{% if count < 10 %}0{% endif %}{{ count | append: ' ' }}</span>
+                <div class="chapter-title-wrapper">
+                  <a href="{{ chapter.url }}">{{ chapter.title }}</a>
+                </div>
+              </div>
+            {% endif %}
+            {% assign count = count | plus: 1 %}
+          {% endfor %}
+        </div>
       {% endif %}
     {% endfor %}
-  </ol>
+  </div>
 </nav>
 
-
 <div class="nav-container">
-    <div class="nav-button">
-      <a href="../cover/"><i class="gg-arrow-left"></i></a>
-    </div>
-    <div class="nav-button">
-      <a href="../chapters/chapter-1"><i class="gg-arrow-right"></i></a>
-    </div>
+  <div class="nav-button">
+    <a href="../cover/"><i class="gg-arrow-left"></i></a>
+  </div>
+  <div class="nav-button">
+    <a href="../chapters/chapter-1"><i class="gg-arrow-right"></i></a>
+  </div>
 </div>
