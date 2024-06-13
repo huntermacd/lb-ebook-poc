@@ -1,6 +1,6 @@
 ---
 title: "Chapter 2"
-tags: chapter
+layout: chapter
 ---
 
 # Beer old five points 15-501

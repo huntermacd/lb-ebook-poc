@@ -1,12 +1,19 @@
 ---
-title: 'eBooks'
-layout: layout.liquid
+layout: layout
+title: "Books Index"
 ---
 
-<ol>
-  {% for ebook in ebooks %}
-    <li>
-      <a href="/ebooks/{{ ebook.link }}">{{ ebook.title }}</a>
-    </li>
-  {% endfor %}
-</ol>
+<div class="cover-container">
+  <div class="cover">
+    <h1>Books</h1>
+  </div>
+
+  <div class="cover-copy">
+    <ul>
+      {% for bookWithChapters in collections.booksWithChapters %}
+        <li>
+          <h2><a href="/ebooks/{{ bookWithChapters.book.slug }}/cover">{{ bookWithChapters.book.title }}</a></h2>
+        </li>
+      {% endfor %}
+    </ul>
+</div>

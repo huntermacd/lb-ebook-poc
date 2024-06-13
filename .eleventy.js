@@ -1,53 +1,59 @@
 const Image = require("@11ty/eleventy-img");
+const path = require("path");
 
 module.exports = function (eleventyConfig) {
-  // sort cover and toc to front of collection
-  eleventyConfig.addCollection("chaptersSorted", function (collectionApi) {
-    const all = collectionApi.getAll();
+  // Generate a collection of all books with their chapters
+  eleventyConfig.addCollection("booksWithChapters", function (collectionApi) {
+    const books = collectionApi.getFilteredByGlob("src/ebooks/*/cover.md");
+    const chapters = collectionApi.getFilteredByGlob("src/ebooks/*/chapters/*.md");
 
-    let sorted = [];
-    for (const item of all[0].data.collections.chapter) {
-      if (item.fileSlug === "cover") {
-        sorted.splice(0, 0, item);
-      } else if (item.fileSlug === "table-of-contents") {
-        sorted.splice(1, 0, item);
-      } else {
-        sorted.push(item);
-      }
-    }
+    return books.map(book => {
+      const bookSlug = book.filePathStem.split("/")[2];
+      const bookChapters = chapters
+        .filter(chapter => chapter.inputPath.includes(bookSlug))
+        .sort((a, b) => a.fileSlug.localeCompare(b.fileSlug));
 
-    return sorted;
+      return {
+        book: {
+          ...book.data,
+          slug: bookSlug,
+        },
+        chapters: bookChapters.map((chapter, index) => ({
+          title: chapter.data.title,
+          url: chapter.url,
+          filePathStem: chapter.filePathStem,
+          inputPath: chapter.inputPath,
+          index: index,
+          previous: index > 0 ? bookChapters[index - 1] : null,
+          next: index < bookChapters.length - 1 ? bookChapters[index + 1] : null,
+        }))
+      };
+    });
   });
 
-  // Watch CSS files for changes
   eleventyConfig.setBrowserSyncConfig({
     files: "./_site/css/**/*.css",
   });
 
-  // Copy img dir into _site/img
   eleventyConfig.addPassthroughCopy("img");
 
-  // Async shortcode for optimizing/rendering images
   eleventyConfig.addShortcode("image", async function (src, alt, width, height) {
     let metadata = await Image(src, {
       widths: [260, 570],
       formats: ["jpeg"],
     });
 
-    let data;
+    let data = width === 260 ? metadata.jpeg[0] : metadata.jpeg[1];
 
-    if (width === 260) {
-      data = metadata.jpeg[0];
-    } else {
-      data = metadata.jpeg[1];
-    }
-
-		return `<img src="${data.url}" width="${width}" height="${height}" alt="${alt}" loading="lazy" decoding="async">`;
+    return `<img src="${data.url}" width="${width}" height="${height}" alt="${alt}" loading="lazy" decoding="async">`;
   });
 
   return {
     dir: {
       input: "src",
+      output: "_site",
+      includes: "_includes",
+      data: "_data",
     },
   };
 };

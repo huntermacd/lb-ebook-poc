@@ -11,20 +11,33 @@
   <body>
     <div class="sidebar">
       <div class="logo-container">
-        <a href="{{ pagination.href.first }}">
+        <a href="/">
           <div>
-            <img src="../../../img/logo.svg" alt="" />
+            <img src="/img/logo.svg" alt="" />
           </div>
         </a>
       </div>
       <div class="page-title">
         <div>{{ chapter.data.title }}</div>
       </div>
-      {% if pagination.pageNumber != 0 %}
+      
+    {% assign currentBookSlug = page.filePathStem | split: "/" | slice: 2, 1 | join: "" %}  
+    {% for bookWithChapters in collections.booksWithChapters %}
+      {% if bookWithChapters.book.slug == currentBookSlug %}
         <div class="page-number">
-          <div>{% if pagination.pageNumber == 1 %}TOC{% else %}{{ pagination.pageNumber | minus: 1 }}{% endif %}</div>
+          <div>
+            {% if page.fileSlug == 'cover' %}
+              <!-- Empty for cover page -->
+            {% elsif page.fileSlug == 'table-of-contents' %}
+              TOC
+            {% else %}
+              {{ page.fileSlug | replace: 'chapter-', '' }}
+            {% endif %}
+          </div>
         </div>
       {% endif %}
+    {% endfor %}
+      
     </div>
     <main>
       {{ content }}

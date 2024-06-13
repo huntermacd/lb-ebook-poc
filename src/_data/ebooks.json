@@ -2,5 +2,9 @@
   {
     "title": "My Sample eBook",
     "link": "my-sample-ebook"
+  },
+  {
+    "title": "Why your CMS Project Will Fail",
+    "link": "jponch-sample"
   }
 ]
