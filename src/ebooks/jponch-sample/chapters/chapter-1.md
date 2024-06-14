@@ -1,5 +1,6 @@
 ---
 title: "Chapter 1"
+image: "images/illustration.png"
 layout: chapter
 ---
 

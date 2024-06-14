@@ -8,7 +8,12 @@ layout: layout
     <p class="copy-paragraph">{{ content }}</p>
   </div>
   <div class="ebook-image">
-    <img src="https://placehold.co/400x400/f81e00/01070b" />
+    {% if image %}
+      {% assign currentBookSlug = page.filePathStem | split: "/" | slice: 2, 1 | join: "" %}
+      <img src="/ebooks/{{ currentBookSlug }}/{{ image }}" alt="{{ title }}">
+    {% else %}
+      <img src="https://placehold.co/400x400/f81e00/01070b" alt="Placeholder Image">
+    {% endif %}
   </div>
 </div>
 
