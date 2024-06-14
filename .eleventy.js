@@ -1,6 +1,5 @@
 const Image = require("@11ty/eleventy-img");
 const path = require("path");
-const fs = require("fs");
 
 module.exports = function (eleventyConfig) {
   // Generate a collection of all books with their chapters
@@ -39,10 +38,15 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("img");
 	eleventyConfig.addPassthroughCopy("src/ebooks/**/*.png");
 
-  eleventyConfig.addShortcode("image", async function (src, alt, width, height) {
-    let metadata = await Image(src, {
+  eleventyConfig.addShortcode("image", function (src, alt, bookSlug) {
+    let fullSrc = `/ebooks/${bookSlug}/images/${src}`;
+    return `<img src="${fullSrc}" alt="${alt}">`;
+  });
+
+  eleventyConfig.addShortcode("img", function (src, alt, width, height, bookSlug) {
+    let metadata = Image(src, {
       widths: [260, 570],
-      formats: ["jpeg"],
+      formats: ["png"],
     });
 
     let data = width === 260 ? metadata.jpeg[0] : metadata.jpeg[1];
