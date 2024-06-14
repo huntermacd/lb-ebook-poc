@@ -1,5 +1,5 @@
 ---
-title: "Thinking the project is \"done\""
+title: Thinking the project is "done"
 layout: chapter
 ---
 
