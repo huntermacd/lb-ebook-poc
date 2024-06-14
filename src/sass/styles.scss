@@ -1,6 +1,7 @@
 $lb-black: #01070b;
 $lb-red: #f81e00;
 $lb-gray: #e0e6eb;
+$lb-white: #fff;
 
 body {
   margin: 0;
@@ -53,12 +54,17 @@ main {
 .page-number {
   height: 80px;
   width: 80px;
-  font-size: 1.5em;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: verdana, sans-serif;
   border-top: 1px solid $lb-gray;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  color: #445A6A;
 }
 
 .nav-container {
@@ -109,17 +115,59 @@ main {
 }
 
 .toc-container {
-  padding: 7em;
+  padding: 4em; 
+  padding-top: 10em;
+  text-align: left; 
 
   > p {
     text-transform: uppercase;
-    margin-bottom: 3em;
+    margin-bottom: 2em; 
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.1em;
+    text-align: left;
+    color: #445A6A;
   }
 
-  ol li {
+  .toc-columns {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .toc-column {
+    flex: 1;
+    max-width: 45%;
+  }
+
+  .chapter-item {
     font-size: 1.25em;
     font-weight: 700;
-    margin-bottom: 1.5em;
+    margin-bottom: 2em; 
+    color: $lb-black;
+    display: flex;
+    align-items: flex-start;
+
+    .chapter-count {
+      color: $lb-red;
+      margin-right: 1em;
+      flex-shrink: 0; 
+    }
+
+    a {
+      text-decoration: none; 
+      color: inherit; 
+
+      &:hover {
+        color: $lb-red; 
+      }
+    }
+
+    // Ensure the text after the number is indented correctly
+    .chapter-title-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 

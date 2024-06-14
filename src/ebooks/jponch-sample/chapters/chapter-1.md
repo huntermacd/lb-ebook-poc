@@ -1,5 +1,5 @@
 ---
-title: "Chapter 1"
+title: "Why your CMS project will fail"
 image: "images/illustration.png"
 layout: chapter
 ---
