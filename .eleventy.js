@@ -36,7 +36,10 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addPassthroughCopy("img");
-	eleventyConfig.addPassthroughCopy("src/ebooks/**/*");
+  eleventyConfig.addPassthroughCopy("src/ebooks/**/*.png");
+  eleventyConfig.addPassthroughCopy("src/ebooks/**/*.jpg");
+  eleventyConfig.addPassthroughCopy("src/ebooks/**/*.jpeg");
+  eleventyConfig.addPassthroughCopy("src/ebooks/**/*.gif");
 
   eleventyConfig.addShortcode("image", function (src, alt, bookSlug) {
     let fullSrc = `/ebooks/${bookSlug}/images/${src}`;
