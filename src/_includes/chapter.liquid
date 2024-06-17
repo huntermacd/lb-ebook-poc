@@ -25,20 +25,26 @@ layout: layout
 
 <div class="nav-container">
   {% if isFirstChapter %}
-    <div class="nav-button">
-      <a href="../../table-of-contents/"><i class="gg-arrow-left"></i></a>
-    </div>
+    <a href="../../table-of-contents/">
+      <div class="nav-button">
+        <i class="gg-arrow-left"></i>
+      </div>
+    </a>
   {% else %}
     {% if previousChapter %}
-      <div class="nav-button">
-        <a href="{{ previousChapter.url }}"><i class="gg-arrow-left"></i></a>
-      </div>
+      <a href="{{ previousChapter.url }}">
+        <div class="nav-button">
+          <i class="gg-arrow-left"></i>
+        </div>
+      </a>
     {% endif %}
   {% endif %}
 
   {% if nextChapter %}
-    <div class="nav-button">
-      <a href="{{ nextChapter.url }}"><i class="gg-arrow-right"></i></a>
-    </div>
+    <a href="{{ nextChapter.url }}">
+      <div class="nav-button">
+        <i class="gg-arrow-right"></i>
+      </div>
+    </a>
   {% endif %}
 </div>
