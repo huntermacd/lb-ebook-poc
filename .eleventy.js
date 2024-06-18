@@ -11,8 +11,12 @@ module.exports = function (eleventyConfig) {
       const bookSlug = book.filePathStem.split("/")[2];
       const bookChapters = chapters
         .filter(chapter => chapter.inputPath.includes(bookSlug))
-        .sort((a, b) => a.fileSlug.localeCompare(b.fileSlug));
-
+        .sort((a, b) => {
+          const numA = parseInt(a.fileSlug.replace('chapter-', ''), 10);
+          const numB = parseInt(b.fileSlug.replace('chapter-', ''), 10);
+          return numA - numB;
+        });
+      
       return {
         book: {
           ...book.data,
