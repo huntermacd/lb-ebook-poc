@@ -22,7 +22,7 @@ main {
   height: 100vh;
   border-right: 1px solid $lb-gray;
   box-sizing: border-box;
-  box-shadow: -10px 10px 10px 10px $lb-gray;
+  // box-shadow: -10px 10px 10px 10px $lb-gray;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -52,6 +52,10 @@ main {
 }
 
 .page-number {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 80px;
   width: 80px;
   display: flex;
@@ -72,7 +76,7 @@ main {
   justify-content: end;
   gap: 0.5em;
   margin: 0.5em;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
 }
