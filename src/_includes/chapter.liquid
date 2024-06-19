@@ -11,8 +11,6 @@ layout: layout
     {% if image %}
       {% assign currentBookSlug = page.filePathStem | split: "/" | slice: 2, 1 | join: "" %}
       <img src="/ebooks/{{ currentBookSlug }}/images/{{ image }}" alt="{{ title }}">
-    {% else %}
-      <img src="https://placehold.co/400x400/f81e00/01070b" alt="Placeholder Image">
     {% endif %}
   </div>
 </div>
