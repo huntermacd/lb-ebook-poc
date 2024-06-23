@@ -10,9 +10,11 @@ title: "Table of Contents"
     {% assign count = 1 %}
     {% for bookWithChapters in collections.booksWithChapters %}
       {% if bookWithChapters.book.slug == currentBookSlug %}
+        {% assign totalChapters = bookWithChapters.chapters | size %}
+        {% assign itemsPerColumn = totalChapters | divided_by: 2 | ceil %}
         <div class="toc-column">
           {% for chapter in bookWithChapters.chapters %}
-            {% if count <= 5 %}
+            {% if count <= itemsPerColumn %}
               <div class="chapter-item">
                 <span class="chapter-count">{% if count < 10 %}0{% endif %}{{ count | append: ' ' }}</span>
                 <div class="chapter-title-wrapper">
@@ -26,7 +28,7 @@ title: "Table of Contents"
         {% assign count = 1 %}
         <div class="toc-column">
           {% for chapter in bookWithChapters.chapters %}
-            {% if count > 5 %}
+            {% if count > itemsPerColumn %}
               <div class="chapter-item">
                 <span class="chapter-count">{% if count < 10 %}0{% endif %}{{ count | append: ' ' }}</span>
                 <div class="chapter-title-wrapper">
